@@ -1,22 +1,156 @@
 import java.util.Arrays;
 
+// Credits to Ahnaf for taking the time to explain.
+
 public class TestInteger implements Comparable<TestInteger> {
-
     public int value;
-
     static long counter;
 
-    // Takes in an integer indexSize and sets it to value.
+    public TestInteger() {
+    }
 
-    TestInteger(int indexSize){
+    public TestInteger(int initVal) {
+        this.value = initVal;
+    }
 
-        value = indexSize;
+    public static void main(String args[]) {
+        TestInteger program = new TestInteger();
+        program.compareAlgorithms();
+    }
+
+    public void compareAlgorithms() {
+        TestInteger[] qsArray = genRanArr(10000);
+        TestInteger[] tsArray = qsArray.clone();
+
+
+        System.out.println(("## Random Arrays\n"));
+        runQuicksort(qsArray);
+        runTimSort(tsArray);
+
+
+        System.out.println("\n\n## Ordered Arrays\n");
+        runQuicksort(qsArray);
+        runTimSort(tsArray);
+
+
+        System.out.println("\n\n## 10 Sorted Seqs of 1000\n");
+        toSortedChunks(qsArray, 1000);
+        tsArray = qsArray.clone();
+
+        runQuicksort(qsArray);
+        runTimSort(tsArray);
+
+
+        System.out.println("\n\n## 100 Sorted Seqs of 100\n");
+        toSortedChunks(qsArray, 100);
+        tsArray = qsArray.clone();
+
+        runQuicksort(qsArray);
+        runTimSort(tsArray);
+    }
+
+    public void runQuicksort(TestInteger[] array) {
+        TestInteger.resetCounter();
+
+        long startTime = System.currentTimeMillis();
+        TestInteger.quickSort(array, 0, array.length - 1);
+        long endTime = System.currentTimeMillis();
+
+        long counter = TestInteger.counter;
+
+
+        System.out.println("### Quicksort");
+        System.out.println("\t* Comparisons: " + counter);
+        System.out.println("\t* Runtime: " + (endTime - startTime) + " ms");
+        System.out.println("\t* Sorted: " + TestInteger.isSorted(array) + "\n");
+    }
+
+    public void runTimSort(TestInteger[] array) {
+        TestInteger.resetCounter();
+
+        long startTime = System.currentTimeMillis();
+        Arrays.sort(array);
+        long endTime = System.currentTimeMillis();
+
+        long counter = TestInteger.counter;
+
+        System.out.println("### Tim Sort");
+        System.out.println("\t* Comparisons: " + counter);
+        System.out.println("\t* Runtime: " + (endTime - startTime) + " ms");
+        System.out.println("\t* Sorted: " + TestInteger.isSorted(array) + "\n");
+    }
+
+    public int genRanInt() {
+        return (int) (Math.random() * 1000000);
+    }
+
+    public TestInteger[] genRanArr(int size) {
+        TestInteger[] result = new TestInteger[size];
+
+        for (int i = 0; i < size; i++) {
+            result[i] = new TestInteger(genRanInt());
+        }
+
+        return result;
+    }
+
+    public void toSortedChunks(TestInteger[] array, int chunkSize) {
+
+        for (int chunkIndex = 0; chunkIndex < array.length; chunkIndex += chunkSize) {
+            int startValue = genRanInt();
+
+            // for every element within each of those thousand chunks
+            for (int relativeIndex = chunkIndex; relativeIndex < chunkIndex + chunkSize; relativeIndex++) {
+                array[relativeIndex].value = startValue + relativeIndex;
+            }
+        }
+    }
+
+    public static void quickSort(TestInteger[] newArray, int firstValue, int lastValue){
+
+        if (firstValue < lastValue) {
+            int anyValue = partition(newArray, firstValue, lastValue);
+            quickSort(newArray, firstValue, anyValue - 1);
+            quickSort(newArray, anyValue + 1, lastValue);
+        }
+    }
+
+    public static int partition(TestInteger[] pAarray, int firstValue, int lastValue){
+
+        TestInteger x = pAarray[lastValue];
+        int i = firstValue - 1;
+
+        // The next line is basically what the book's pseudocode meant.
+        for (int m = firstValue; m < lastValue; m++){
+
+            if(pAarray[m].compareTo(x) <= 0){
+                i++;
+                exchange(i, m, pAarray);
+            }
+
+        }
+
+        exchange(i+1, lastValue, pAarray);
+
+        return i+1;
 
     }
 
-    // Compares the numbers to check if they are greater than, equal to or less than
-    // each other and returns a value. Also it adds to the counter every time it loops
-    // through and compares another number.
+    // The exchange method for int exchanging two elements in an array.
+
+    public static void exchange(int posOne, int posTwo, TestInteger[] newArray){
+
+        //Creating a temporary array to store the value so that I can swap the elements.
+
+        TestInteger temp = newArray[posOne];
+        newArray[posOne] = newArray[posTwo];
+        newArray[posTwo] = temp;
+
+    }
+
+    public static void resetCounter() {
+        TestInteger.counter = 0;
+    }
 
     public int compareTo(TestInteger valueToCompare) {
 
@@ -26,19 +160,22 @@ public class TestInteger implements Comparable<TestInteger> {
         counter++;
 
         if (this.value < valueToCompare.value){
-
             return less;
-
         }
-
         if (this.value == valueToCompare.value){
-
             return eq;
-
         }
-
         else return greater;
+    }
 
+    public static boolean isSorted(TestInteger[] newArray){
+
+        for(int i = 1; i < newArray.length; i++){
+            if(newArray[i-1].compareTo(newArray[i]) ==1){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
