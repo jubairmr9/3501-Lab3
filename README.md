@@ -1,3 +1,3 @@
 # 3501-Lab3
 
-Using a randomized version of both QuickSort and TimSort and collecting their test data.
+Using three variations of QuickSort and comparing their results with the regular one.
