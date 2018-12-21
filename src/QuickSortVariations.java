@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main extends TestInteger{
+public class QuickSortVariations extends TestInteger{
 
     // Randomized version of QuickSort
 
@@ -35,11 +35,36 @@ public class Main extends TestInteger{
 
     }
 
+    // QuickSort implemented with insertion sort
 
-    public static void main(String[] args) {
+    public static void switchInsertionSort(TestInteger[] array){
 
+        semiQuickSort(array, 0, array.length);
+        insertionSort(array);
+    }
 
+    public static void insertionSort(TestInteger[] iArray){
 
+        for (int j = 1; j < iArray.length; j++){
+
+            TestInteger key = iArray[j];
+            int i = j-1;
+
+            while (i >= 0 && iArray[i].compareTo(key) == 1){
+                iArray[i+1] = iArray[i];
+                i = i-1;
+            }
+            iArray[i+1] = key;
+        }
+    }
+
+    public static void semiQuickSort(TestInteger[] array, int start, int end){
+
+        if (end - start < 3){
+            int q = partition(array, start, end);
+            quickSort(array, start, q-1);
+            quickSort(array, q+1, end);
+        }
     }
 
 }

@@ -1,6 +1,4 @@
-import java.util.*;
-
-public class TestRandomQuickSort extends Main {
+public class TestQuickSortVariations extends QuickSortVariations {
 
     public static void main(String[] args){
 
@@ -25,18 +23,32 @@ public class TestRandomQuickSort extends Main {
 
         TestInteger[] secTenSeqRandArr = tenSeqRandArr.clone();
 
+        System.out.println("10 seq. of 1000 elements.");
+
         for(int i = 1; i<6; i++){
 
             double rQSortStartTime = new Double(System.currentTimeMillis());
-
             rQuickSort(tenSeqRandArr, 0, tenSeqRandArr.length - 1);
-
             double rQSortEndTime = new Double(System.currentTimeMillis());
 
             double qSortTimeDifference = rQSortEndTime - rQSortStartTime;
 
-            System.out.println("Sorting time of the 10 seq. of 1000 elements using Randomized QuickSort for time #" + i + " = "+ qSortTimeDifference);
+            System.out.println("Sorting time for TsH using Randomized QuickSort for time #" + i + " = "+ qSortTimeDifference);
+            System.out.println("Sorted? " + TestInteger.isSorted(tenSeqRandArr));
 
+            tenSeqRandArr = secTenSeqRandArr.clone();
+
+        }
+
+        for(int i = 1; i<6; i++){
+
+            double sISortStartTime = new Double(System.currentTimeMillis());
+            switchInsertionSort(tenSeqRandArr);
+            double sISortEndTime = new Double(System.currentTimeMillis());
+
+            double sISortTimeDifference = sISortEndTime - sISortStartTime;
+
+            System.out.println("Sorting time for TsH using SwitchInsertionSort for time #" + i + " = "+ sISortTimeDifference);
             System.out.println("Sorted? " + TestInteger.isSorted(tenSeqRandArr));
 
             tenSeqRandArr = secTenSeqRandArr.clone();
@@ -46,15 +58,12 @@ public class TestRandomQuickSort extends Main {
         for(int i = 1; i<6; i++){
 
             double qSortStartTime = new Double(System.currentTimeMillis());
-
             quickSort(tenSeqRandArr, 0, tenSeqRandArr.length - 1);
-
             double qSortEndTime = new Double(System.currentTimeMillis());
 
             double qSortTimeDifference = qSortEndTime - qSortStartTime;
 
-            System.out.println("Sorting time of the 10 seq. of 1000 elements using Quick Sort for time #" + i + " = "+ qSortTimeDifference);
-
+            System.out.println("Sorting time for TsH using Quick Sort for time #" + i + " = "+ qSortTimeDifference);
             System.out.println("Sorted? " + TestInteger.isSorted(tenSeqRandArr));
 
             tenSeqRandArr = secTenSeqRandArr.clone();
@@ -80,21 +89,35 @@ public class TestRandomQuickSort extends Main {
 
         TestInteger[] secHundredSeqRandArr = hundredSeqRandArr.clone();
 
+        System.out.println("100 seq. of 100 elements.");
+
         // Loop to run randomized quicksort 5 times and record the time it takes
 
         for(int i = 1; i<6; i++){
 
             double rQSortStartTime = new Double(System.currentTimeMillis());
-
             rQuickSort(hundredSeqRandArr, 0, hundredSeqRandArr.length - 1);
-
             double rQSortEndTime = new Double(System.currentTimeMillis());
 
             double rQSortTimeDifference = rQSortEndTime - rQSortStartTime;
 
-            System.out.println("Sorting time of the 100 seq. of 100 elements using Randomized QuickSort for time #" + i + " = "+ rQSortTimeDifference);
-
+            System.out.println("Sorting time for HsH using Randomized QuickSort on new array for time #" + i + " = "+ rQSortTimeDifference);
             System.out.println("Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
+
+            hundredSeqRandArr = secHundredSeqRandArr.clone();
+
+        }
+
+        for(int i = 1; i<6; i++){
+
+            double sISortStartTime = new Double(System.currentTimeMillis());
+            switchInsertionSort(hundredSeqRandArr);
+            double sISortEndTime = new Double(System.currentTimeMillis());
+
+            double sISortTimeDifference = sISortEndTime - sISortStartTime;
+
+            System.out.println("Sorting time for HsH using SwitchInsertionSort for time #" + i + " = "+ sISortTimeDifference);
+            System.out.println("Sorted? " + TestInteger.isSorted(tenSeqRandArr));
 
             hundredSeqRandArr = secHundredSeqRandArr.clone();
 
@@ -105,15 +128,12 @@ public class TestRandomQuickSort extends Main {
         for(int i = 1; i<6; i++){
 
             double qSortStartTime = new Double(System.currentTimeMillis());
-
             quickSort(hundredSeqRandArr, 0, hundredSeqRandArr.length - 1);
-
             double qSortEndTime = new Double(System.currentTimeMillis());
 
             double qSortTimeDifference = qSortEndTime - qSortStartTime;
 
-            System.out.println("Sorting time of the 100 seq. of 100 elements using Quick Sort for time #" + i + " = "+ qSortTimeDifference);
-
+            System.out.println("Sorting time for HsH using Quick Sort for time #" + i + " = "+ qSortTimeDifference);
             System.out.println("Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
 
             hundredSeqRandArr = secHundredSeqRandArr.clone();
