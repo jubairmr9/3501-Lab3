@@ -3,6 +3,7 @@ import java.util.Arrays;
 // Credits to Ahnaf for taking the time to explain.
 
 public class TestInteger implements Comparable<TestInteger> {
+
     public int value;
     static long counter;
 
@@ -19,37 +20,37 @@ public class TestInteger implements Comparable<TestInteger> {
     }
 
     public void compareAlgorithms() {
-        TestInteger[] qsArray = genRanArr(10000);
-        TestInteger[] tsArray = qsArray.clone();
+        TestInteger[] qArray = genRanArr(10000);
+        TestInteger[] tArray = qArray.clone();
 
 
         System.out.println(("## Random Arrays\n"));
-        runQuicksort(qsArray);
-        runTimSort(tsArray);
+        runQuickSort(qArray);
+        runTimSort(tArray);
 
 
         System.out.println("\n\n## Ordered Arrays\n");
-        runQuicksort(qsArray);
-        runTimSort(tsArray);
+        runQuickSort(qArray);
+        runTimSort(tArray);
 
 
         System.out.println("\n\n## 10 Sorted Seqs of 1000\n");
-        toSortedChunks(qsArray, 1000);
-        tsArray = qsArray.clone();
+        toSortedChunks(qArray, 1000);
+        tArray = qArray.clone();
 
-        runQuicksort(qsArray);
-        runTimSort(tsArray);
+        runQuickSort(qArray);
+        runTimSort(tArray);
 
 
         System.out.println("\n\n## 100 Sorted Seqs of 100\n");
-        toSortedChunks(qsArray, 100);
-        tsArray = qsArray.clone();
+        toSortedChunks(qArray, 100);
+        tArray = qArray.clone();
 
-        runQuicksort(qsArray);
-        runTimSort(tsArray);
+        runQuickSort(qArray);
+        runTimSort(tArray);
     }
 
-    public void runQuicksort(TestInteger[] array) {
+    public void runQuickSort(TestInteger[] array) {
         TestInteger.resetCounter();
 
         long startTime = System.currentTimeMillis();
