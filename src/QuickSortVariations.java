@@ -13,6 +13,8 @@ public class QuickSortVariations extends TestInteger{
         }
     }
 
+    // Randomized QuickSort Helper Functions
+
     public static int rPartition(TestInteger[] rPartitionArray, int firstValue, int lastValue){
 
         Random rand = new Random();
@@ -23,11 +25,7 @@ public class QuickSortVariations extends TestInteger{
         return partition(rPartitionArray, firstValue, lastValue);
     }
 
-    // The exchange method for int exchanging two elements in an array.
-
     public static void exchange(int posOne, int posTwo, TestInteger[] newArray){
-
-        //Creating a temporary array to store the value so that I can swap the elements.
 
         TestInteger temp = newArray[posOne];
         newArray[posOne] = newArray[posTwo];
@@ -35,13 +33,15 @@ public class QuickSortVariations extends TestInteger{
 
     }
 
-    // QuickSort implemented with insertion sort
+    // QuickSort implemented with insertion sort - Switch Insertion Sort
 
     public static void switchInsertionSort(TestInteger[] array){
 
         semiQuickSort(array, 0, array.length);
         insertionSort(array);
     }
+
+    // Switch Insertion Sort Helper Functions
 
     public static void insertionSort(TestInteger[] iArray){
 
@@ -58,13 +58,80 @@ public class QuickSortVariations extends TestInteger{
         }
     }
 
-    public static void semiQuickSort(TestInteger[] array, int start, int end){
+    public static void semiQuickSort(TestInteger[] array, int firstValue, int lastValue){
 
-        if (end - start < 3){
-            int q = partition(array, start, end);
-            quickSort(array, start, q-1);
-            quickSort(array, q+1, end);
+        if (lastValue - firstValue < 3){
+            int q = partition(array, firstValue, lastValue);
+            quickSort(array, firstValue, q-1);
+            quickSort(array, q+1, lastValue);
         }
+    }
+
+    // Median of Three Pivot Sort
+
+    public static void mOfThreeSort(TestInteger[] medArray, int firstValue, int lastValue){
+        if (firstValue < lastValue){
+            int q = partitionMedian(medArray, firstValue, lastValue);
+            mOfThreeSort(medArray, firstValue, q-1);
+            mOfThreeSort(medArray, q+1, lastValue);
+        }
+    }
+
+    // Median of Three Helper Functions
+
+    public static int partitionMedian(TestInteger[] mPartArray, int subfirstValue, int sublastValue) {
+        int result =  findMedianIndex(mPartArray, subfirstValue, sublastValue);
+        exchange(sublastValue, result, mPartArray);
+        TestInteger x = mPartArray[sublastValue];
+        int i = subfirstValue - 1;
+
+        for (int count = subfirstValue; count <= sublastValue - 1; count++) {
+            if (mPartArray[count].compareTo(x) <= 0) {
+                i++;
+                exchange(i, count, mPartArray);
+            }
+        }
+
+        exchange(i+1, sublastValue, mPartArray);
+
+        return i+1;
+    }
+
+    public static int findMedianIndex(TestInteger[] medArray, int subfirstValue, int sublastValue){
+        int ind1;
+        int ind2;
+        int ind3;
+
+        ind1 = (int)(Math.random() *(sublastValue-subfirstValue) + subfirstValue);
+        ind2 = (int)(Math.random() * (sublastValue-subfirstValue) + subfirstValue);
+        ind3 = (int)(Math.random() * (sublastValue-subfirstValue) + subfirstValue);
+
+        int[] indArr = new int[3];
+        indArr[0] = ind1;
+        indArr[1] = ind2;
+        indArr[2] = ind3;
+
+        int result = medArray[indArr[0]].compareTo(medArray[indArr[1]]);
+        if (result == -1){
+            exchangeInt(0, 1, indArr);
+        }
+
+        result = medArray[indArr[1]].compareTo(medArray[indArr[2]]);
+        if (result == -1){
+            exchangeInt(1, 2, indArr);
+        }
+
+        result = medArray[indArr[0]].compareTo(medArray[indArr[1]]);
+        if (result == -1){
+            exchangeInt(0, 1, indArr);
+        }
+        return indArr[1];
+    }
+
+    public static void exchangeInt(int posOne, int posTwo, int[] Array){
+        int temp = Array[posOne];
+        Array[posOne] = Array[posTwo];
+        Array[posTwo] = temp;
     }
 
 }

@@ -1,6 +1,4 @@
-import java.util.Arrays;
-
-// Credits to Ahnaf for taking the time to explain.
+import java.util.*;
 
 public class TestInteger implements Comparable<TestInteger> {
 

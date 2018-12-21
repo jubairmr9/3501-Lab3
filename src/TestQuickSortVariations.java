@@ -27,6 +27,8 @@ public class TestQuickSortVariations extends QuickSortVariations {
 
         for(int i = 1; i<6; i++){
 
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(tenSeqRandArr));
+
             double rQSortStartTime = new Double(System.currentTimeMillis());
             rQuickSort(tenSeqRandArr, 0, tenSeqRandArr.length - 1);
             double rQSortEndTime = new Double(System.currentTimeMillis());
@@ -40,7 +42,11 @@ public class TestQuickSortVariations extends QuickSortVariations {
 
         }
 
+        // Switch Insertion Sort
+
         for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(tenSeqRandArr));
 
             double sISortStartTime = new Double(System.currentTimeMillis());
             switchInsertionSort(tenSeqRandArr);
@@ -55,7 +61,30 @@ public class TestQuickSortVariations extends QuickSortVariations {
 
         }
 
+        // Median of Three Pivot Sort
+
         for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(tenSeqRandArr));
+
+            double qSortStartTime = new Double(System.currentTimeMillis());
+            mOfThreeSort(tenSeqRandArr, 0, tenSeqRandArr.length - 1);
+            double qSortEndTime = new Double(System.currentTimeMillis());
+
+            double qSortTimeDifference = qSortEndTime - qSortStartTime;
+
+            System.out.println("Sorting time for TsH using Medium for time #" + i + " = "+ qSortTimeDifference);
+            System.out.println("Sorted? " + TestInteger.isSorted(tenSeqRandArr));
+
+            tenSeqRandArr = secTenSeqRandArr.clone();
+
+        }
+
+        // Regular Quicksort
+
+        for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(tenSeqRandArr));
 
             double qSortStartTime = new Double(System.currentTimeMillis());
             quickSort(tenSeqRandArr, 0, tenSeqRandArr.length - 1);
@@ -91,9 +120,11 @@ public class TestQuickSortVariations extends QuickSortVariations {
 
         System.out.println("100 seq. of 100 elements.");
 
-        // Loop to run randomized quicksort 5 times and record the time it takes
+        // Randomized QuickSort
 
         for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
 
             double rQSortStartTime = new Double(System.currentTimeMillis());
             rQuickSort(hundredSeqRandArr, 0, hundredSeqRandArr.length - 1);
@@ -108,7 +139,11 @@ public class TestQuickSortVariations extends QuickSortVariations {
 
         }
 
+        // Switch Insertion SOrt
+
         for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
 
             double sISortStartTime = new Double(System.currentTimeMillis());
             switchInsertionSort(hundredSeqRandArr);
@@ -117,15 +152,36 @@ public class TestQuickSortVariations extends QuickSortVariations {
             double sISortTimeDifference = sISortEndTime - sISortStartTime;
 
             System.out.println("Sorting time for HsH using SwitchInsertionSort for time #" + i + " = "+ sISortTimeDifference);
-            System.out.println("Sorted? " + TestInteger.isSorted(tenSeqRandArr));
+            System.out.println("Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
 
             hundredSeqRandArr = secHundredSeqRandArr.clone();
 
         }
 
-        // Loop to run quicksort 5 times and record the time it takes
+        // Median of Three Pivot Sort
 
         for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
+
+            double rQSortStartTime = new Double(System.currentTimeMillis());
+            mOfThreeSort(hundredSeqRandArr, 0, hundredSeqRandArr.length - 1);
+            double rQSortEndTime = new Double(System.currentTimeMillis());
+
+            double rQSortTimeDifference = rQSortEndTime - rQSortStartTime;
+
+            System.out.println("Sorting time for HsH using Median on new array for time #" + i + " = "+ rQSortTimeDifference);
+            System.out.println("Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
+
+            hundredSeqRandArr = secHundredSeqRandArr.clone();
+
+        }
+
+        // Regular QuickSort
+
+        for(int i = 1; i<6; i++){
+
+            System.out.println("Pre-Sorted? " + TestInteger.isSorted(hundredSeqRandArr));
 
             double qSortStartTime = new Double(System.currentTimeMillis());
             quickSort(hundredSeqRandArr, 0, hundredSeqRandArr.length - 1);
